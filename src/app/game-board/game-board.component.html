@@ -1,1 +1,16 @@
-<p>game-board works!</p>
+<h1>Username: {{ username }}</h1>
+
+
+<main>
+    <app-square
+        *ngFor="let availChoice of availableChoices"
+        [displayValue]="availChoice"
+        (click)="playGame(availChoice)" >
+    </app-square>
+</main>
+
+
+<p *ngIf="gamefinished">winner: {{ winner }}</p>
+<p *ngIf="gamefinished">serverchoice: {{ serverChoice }}</p>
+
+<button (click)="startNewGame()">start new game</button>

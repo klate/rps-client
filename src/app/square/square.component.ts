@@ -1,31 +1,20 @@
+import { BuiltinType } from '@angular/compiler';
 import { Component, Inject, Input } from '@angular/core';
 
 @Component({
   selector: 'app-square',
   template: `
-    <p>
-      square works! {{ random }} 
-    </p>
+      <button>{{ this.displayValue }}</button>
   `,
-  styles: [
+  styleUrls: [
+    './square.component.scss'
   ]
 })
+// DUMP component for displaying a tile
 export class SquareComponent {
 
-  // creating value for template ui
-  random = 0;
-
-  constructor(@Inject("message") message: string) {
-    this.displayValue = message;
-    // sets an interval, so the timer random variable is updated every 500ms
-    setInterval(() => this.random = Math.random(), 500);
-  }
-
-  // add input components next
-  // add input components next
-
   @Input()
-  displayValue: 'r' | 'p' | 's' | string;
+  displayValue: 'r' | 'p' | 's' | string | undefined;
 
 
 }
