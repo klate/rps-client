@@ -1,0 +1,10 @@
+<h1>Game History</h1>
+<main>
+    <app-game-history-tile
+        *ngFor="let gameResult of gameResultHistoryData; let i = index"
+        [gameResultData]="gameResult"
+        [index]="i + 1"
+        >
+
+    </app-game-history-tile>
+</main>

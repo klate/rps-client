@@ -12,9 +12,9 @@ export class GameBoardComponent implements OnInit {
   // the avalable choices as squares for the Gameboard
   availableChoices: any[];
 
-
   // the username of the user playing this game
   // TODO: get from input box
+  @Input()
   username: string | undefined;
 
   // TODO: fix the allowed datatypes below
@@ -73,7 +73,9 @@ export class GameBoardComponent implements OnInit {
     // TODO; make global
     const gameServerUrl = 'http://localhost:8080/api/play'
 
-    return await this.fetchObjData<GameResult>(gameServerUrl + requParams);
+    // TODO: change to non test function
+    // return await this.fetchObjData<GameResult>(gameServerUrl + requParams);
+    return this.fetchObjDataFake(gameServerUrl + requParams);
   }
 
   // TODO: move this to util folder (with function ***)
@@ -84,6 +86,14 @@ export class GameBoardComponent implements OnInit {
       throw new Error(response.statusText);
     }
     return await response.json();
+  }
+
+  // temp local dev fuction -> remain to delete
+   fetchObjDataFake(url: string) : GameResult {
+      const res = new GameResult();
+      res.winner = 'd';
+      res.serverChoice = 'p';
+      return res;
   }
 
 

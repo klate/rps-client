@@ -1,9 +1,13 @@
 
 
-<!-- todo: add game history component that displays the data -->
+<button (click)="setGameBoardVisible()">play game</button>
+<button (click)="setGameHistVisible()">game hist</button>
+
 
 <!-- game board -->
-<app-game-board></app-game-board>
+<app-game-board *ngIf="gameBoardVisible"></app-game-board>
 
+<!-- game history -->
+<app-game-history *ngIf="gameHistVisible"></app-game-history>
 
 <router-outlet></router-outlet>
