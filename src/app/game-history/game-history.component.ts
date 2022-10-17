@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GameResult } from '../types/game/GameResult';
 
 @Component({
@@ -14,45 +15,29 @@ export class GameHistoryComponent implements OnInit {
     this.gameResultHistoryData = [];
   }
 
+  gameHistoryUrl = 'http://localhost:8080/api/history';
+
   ngOnInit(): void {
-    this.generateSampleData();
+    this.gameResultHistoryData = [];
+    this.loadGameHistoryData();
   }
 
-  // test method to generate sample data -> todo: replace with read method that call the rps service
-  generateSampleData(){
-    const maxdataCount = 10;
-
-    // create new dummy game result every 2 seconds
-    setInterval(() => {
-      if(this.gameResultHistoryData.length < maxdataCount){
-        this.gameResultHistoryData.push(this.generateDummyGameresult())
-      }
-    }, 2000);
-  }
-
-  dummynames = ['tick', 'trick', 'track', 'donald', 'gustav'];
-  dummyChoices = ['r', 'p', 's'];
-  
-  // method for creating local dummy values
-  generateDummyGameresult() : GameResult{
-    const grs = new GameResult();
+  // loads the game data from the game server
+  loadGameHistoryData(){
     
-    grs.userName = GameHistoryComponent.getRandomArrayEntry(this.dummynames);
-    grs.playerChoice = GameHistoryComponent.getRandomArrayEntry(this.dummyChoices);
-    grs.serverChoice = GameHistoryComponent.getRandomArrayEntry(this.dummyChoices);
+    let eventSource = new EventSource(this.gameHistoryUrl);
+    eventSource.addEventListener('message', message => {
+      let json = JSON.parse(message.data);
+      console.log('received: ' + message.data);
+      this.gameResultHistoryData.push(new GameResult(json['id'], json['winner'], json['userName'], json['date'], json['playerChoice'], json['serverChoice']));
+    });
 
-    return grs;
+    eventSource.addEventListener('error', error => {
+      console.error(error);
+      eventSource.close();
+    });
+    
   }
 
-  static getRandomArrayEntry(array: string[]) : string {
-    const index = Math.round(Math.random() * (array.length))
-    if(index < 0) {
-      array[0];
-    }
-    if (index >= array.length) {
-      array[array.length - 1];
-    }
-    return array[index];
-  }
 
 }

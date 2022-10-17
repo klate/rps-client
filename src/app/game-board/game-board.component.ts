@@ -19,12 +19,15 @@ export class GameBoardComponent implements OnInit {
 
   // TODO: fix the allowed datatypes below
   // the choice by the user & server ([r]ock, [p]aper, [s]cissors)
-  userchoice: 'r' | 'p' | 's' | undefined | string; // TODO: remove string here
   serverChoice: 'r' | 'p' | 's' | undefined | string; // TODO: remove string here
   // the game state -> finished or not
   gamefinished: boolean | undefined;
   // the winner of the game ([s]erver, [p]layer, [d]raw)
   winner: 's' | 'p' | 'd' | undefined | string;
+
+
+  gameServerUrl = 'http://localhost:8080/api/play';
+
 
   // constructs a new gameboard
   constructor() {
@@ -41,7 +44,6 @@ export class GameBoardComponent implements OnInit {
 
   // resets the game variables
   startNewGame(): void {
-    this.userchoice = undefined;
     this.winner = undefined;
     this.gamefinished = false;
   }
@@ -52,13 +54,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   // event handler for the user choice (player plays the game)
-  async playGame(choice: string){
-    // TODO: check if user input is correct
-    this.userchoice = choice
-
-    // TODO: check username format -> username has to be set beforehand
-
-
+  async playGame(choice: string) {
     const result = await this.makePlayHTTPRequest(this.username, choice);
 
     this.serverChoice = result.serverChoice;
@@ -70,30 +66,17 @@ export class GameBoardComponent implements OnInit {
   // calls the backend game api and returnes the response
   async makePlayHTTPRequest(username: string | undefined, userchoice: string) : Promise<GameResult> {
     const requParams = '?name=' + username + '&c=' + userchoice;
-    // TODO; make global
-    const gameServerUrl = 'http://localhost:8080/api/play'
 
-    // TODO: change to non test function
-    // return await this.fetchObjData<GameResult>(gameServerUrl + requParams);
-    return this.fetchObjDataFake(gameServerUrl + requParams);
+    return await this.fetchObjData<GameResult>(this.gameServerUrl + requParams);
   }
 
   // TODO: move this to util folder (with function ***)
   async fetchObjData<T>(url: string) : Promise<T> {
     const response = await fetch(url);
     if (!response.ok) {
-      // TODO: show errors as toast
       throw new Error(response.statusText);
     }
     return await response.json();
-  }
-
-  // temp local dev fuction -> remain to delete
-   fetchObjDataFake(url: string) : GameResult {
-      const res = new GameResult();
-      res.winner = 'd';
-      res.serverChoice = 'p';
-      return res;
   }
 
 
