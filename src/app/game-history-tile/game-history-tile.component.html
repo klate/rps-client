@@ -1,7 +1,15 @@
-<p>
-    {{ index }}.
-    user: {{ gameResultData?.userName }}
-    winner: {{ gameResultData?.winner }}
-    userchoice: {{ gameResultData?.playerChoice }}
-    serverchoice: {{ gameResultData?.serverChoice }}
-</p>
+<ion-card color={{getTileColor}}>
+    <ion-card-header>
+        <ion-card-subtitle>{{ gameResultData?.userName }}</ion-card-subtitle>
+        <ion-card-title>{{ gameResultData?.winner }} Won!</ion-card-title>   
+    </ion-card-header>
+    <ion-card-content>
+        userchoice: {{ gameResultData?.playerChoice }} 
+        <br>
+        serverchoice: {{ gameResultData?.serverChoice }}
+    </ion-card-content>
+</ion-card>
+
+    
+    
+

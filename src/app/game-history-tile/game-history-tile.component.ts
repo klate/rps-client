@@ -15,4 +15,18 @@ export class GameHistoryTileComponent {
   @Input()
   index: number | undefined;
 
+  get getTileColor() : string{
+    if(this.gameResultData?.winner === 's'){
+      return 'danger';
+    }
+    if(this.gameResultData?.winner === 'd'){
+      return 'warning';
+    }
+    if(this.gameResultData?.winner === 'p'){
+      return 'success'
+    }
+
+    return 'primary';
+  }
+
 }

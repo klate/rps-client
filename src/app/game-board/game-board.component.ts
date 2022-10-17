@@ -13,17 +13,16 @@ export class GameBoardComponent implements OnInit {
   availableChoices: any[];
 
   // the username of the user playing this game
-  // TODO: get from input box
   @Input()
   username: string | undefined;
 
   // TODO: fix the allowed datatypes below
   // the choice by the user & server ([r]ock, [p]aper, [s]cissors)
-  serverChoice: 'r' | 'p' | 's' | undefined | string; // TODO: remove string here
+  serverChoice: undefined | string; // TODO: remove string here
   // the game state -> finished or not
   gamefinished: boolean | undefined;
   // the winner of the game ([s]erver, [p]layer, [d]raw)
-  winner: 's' | 'p' | 'd' | undefined | string;
+  winner: undefined | string;
 
 
   gameServerUrl = 'http://localhost:8080/api/play';

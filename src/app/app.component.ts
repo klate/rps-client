@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NumericValueAccessor } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +16,18 @@ export class AppComponent {
   gameBoardVisible = false;
   gameHistVisible = false;
 
+  showPlayGameButton = false;
+
   // checks , if the username input is ok
-  checkUserNameInput(){
-
-    // if ok -> show gameboard
-
-    // if not ok -> show error message
-
+  checkUserNameInput(userinput: string | any){
+    if(typeof userinput === 'string'){
+      if(userinput?.length >= 3 && userinput?.length <= 20){
+        this.showPlayGameButton = true;
+      }
+      else {
+        this.showPlayGameButton = false;
+      }
+    }
   }
 
   // enables the gameboard visibility and disables the gameHistoryBoard

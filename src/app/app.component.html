@@ -1,8 +1,24 @@
 
-
-<button (click)="setGameBoardVisible()">play game</button>
-<button (click)="setGameHistVisible()">game hist</button>
-
+<ion-grid>
+    <ion-row class="ion-align-items-center">
+        <ion-col></ion-col>
+        <ion-col>
+            <h1 text-center>Rock Paper Scissors</h1>
+            <br>
+            <ion-label>Enter Username: (3-20 chars)</ion-label>
+            <ion-input #userinput (keyup.enter)="checkUserNameInput(userinput.value)" placeholder="myplayername"></ion-input>
+        </ion-col>
+        <ion-col></ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+        <ion-col></ion-col>
+        <ion-col class="ion-text-center">
+            <ion-button *ngIf="showPlayGameButton" class="ion-align-self-center" (click)="setGameBoardVisible()">play game</ion-button>
+            <ion-button class="ion-align-self-center" (click)="setGameHistVisible()">game history</ion-button>
+        </ion-col>
+        <ion-col></ion-col>
+    </ion-row>
+</ion-grid>
 
 <!-- game board -->
 <app-game-board *ngIf="gameBoardVisible"></app-game-board>

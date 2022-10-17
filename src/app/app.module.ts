@@ -7,6 +7,7 @@ import { SquareComponent } from './square/square.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 import { GameHistoryComponent } from './game-history/game-history.component';
 import { GameHistoryTileComponent } from './game-history-tile/game-history-tile.component';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { GameHistoryTileComponent } from './game-history-tile/game-history-tile.
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    IonicModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
