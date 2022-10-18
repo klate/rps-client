@@ -1,4 +1,5 @@
 
+<ion-content overflow-scroll="true">
 <ion-grid>
     <ion-row class="ion-align-items-center">
         <ion-col></ion-col>
@@ -12,18 +13,32 @@
     </ion-row>
     <ion-row class="ion-align-items-center">
         <ion-col></ion-col>
-        <ion-col class="ion-text-center">
+        <ion-col>
             <ion-button *ngIf="showPlayGameButton" class="ion-align-self-center" (click)="setGameBoardVisible()">play game</ion-button>
             <ion-button class="ion-align-self-center" (click)="setGameHistVisible()">game history</ion-button>
         </ion-col>
         <ion-col></ion-col>
     </ion-row>
+
+    <ion-row>
+        <ion-col></ion-col>
+        <ion-col>
+        <!-- game board -->
+            <app-game-board *ngIf="gameBoardVisible" [username]="playername"></app-game-board>
+        </ion-col>
+        <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col></ion-col>
+        <ion-col>
+        <!-- game history -->
+            <app-game-history *ngIf="gameHistVisible"></app-game-history>
+        </ion-col>
+        <ion-col></ion-col>
+    </ion-row>
+
 </ion-grid>
-
-<!-- game board -->
-<app-game-board *ngIf="gameBoardVisible"></app-game-board>
-
-<!-- game history -->
-<app-game-history *ngIf="gameHistVisible"></app-game-history>
+</ion-content>
 
 <router-outlet></router-outlet>

@@ -1,4 +1,3 @@
-import { BuiltinType } from '@angular/compiler';
 import { Component, Inject, Input } from '@angular/core';
 
 @Component({

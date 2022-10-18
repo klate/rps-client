@@ -1,13 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { GameResult } from '../types/game/GameResult';
 
 @Component({
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
-  styleUrls: ['./game-board.component.scss']
+  styleUrls: ['./game-board.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 // class that handles the game logic -> Smart component
-export class GameBoardComponent implements OnInit {
+export class GameBoardComponent implements OnInit{
   
   // the avalable choices as squares for the Gameboard
   availableChoices: any[];
@@ -31,11 +32,9 @@ export class GameBoardComponent implements OnInit {
   // constructs a new gameboard
   constructor() {
     this.availableChoices =  ['r', 'p', 's'];
-
-    // TODO: remove -> for testing only
-    this.username = 'Testusername';
-    this.serverChoice = 'r'
+    this.gamefinished = false;
   }
+
 
   ngOnInit(): void {
     this.startNewGame();
@@ -47,13 +46,12 @@ export class GameBoardComponent implements OnInit {
     this.gamefinished = false;
   }
 
-  // accessor for the username (data binding)
-  get playerName(){
-    return this.username;
-  }
-
   // event handler for the user choice (player plays the game)
   async playGame(choice: string) {
+    if(this.gamefinished){
+      return;
+    }
+
     const result = await this.makePlayHTTPRequest(this.username, choice);
 
     this.serverChoice = result.serverChoice;
